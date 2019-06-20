@@ -202,17 +202,40 @@ ul li {
 }
 .box-div {
 	    box-shadow: 1px -1px 13px 0px #311BD3;
-	    height: 70px;
+	    height: 77px;
 	        margin-bottom: 9px;
 }
 .myClass {
 background: linear-gradient( 100deg, #20D98B, #626DE5);
   color: white;
- 
 } 
+.bootstrap-dropdwon {
+	border-right: 40px;
+}
+.bar-white {
+	color: #000;
+}
 .tea {
 	display: flex;
 	justify-content: flex-end;
+}
+.navbar-nav .dropdown-menu {
+	position: absolute;
+	top: 60px;
+	left: -22px;
+}
+.bar {
+	color: #fff;
+}
+.dropdown.show {
+	background: linear-gradient( 100deg, #20D98B, #626DE5);	
+}
+.dropdown.show .bar-dark{
+color: #fff
+}
+.dropdown .show {
+	    background: none;
+    border: none
 }
 
 .div-icon-link {
@@ -426,6 +449,13 @@ background: linear-gradient( 100deg, #20D98B, #626DE5);
 	background: linear-gradient( 100deg, #20D98B, #626DE5);
 	color: #fff;
 	padding: 10px 35px 10px 35px;
+	border-radius: 40px;
+	border: none;
+}
+.plohospal {
+		background: linear-gradient( 100deg, #20D98B, #626DE5);
+	color: #fff;
+	padding: 20px 20px 20px 20px;
 	border-radius: 40px;
 	border: none;
 }
