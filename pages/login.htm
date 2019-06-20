@@ -1,0 +1,35 @@
+title = "login"
+url = "/login"
+layout = "default"
+is_hidden = 0
+==
+<section class="h-50">
+	<div class="container h-100">
+		<div class="row h-100">
+			<div class="col-lg-12 d-flex align-items-center mx-0">	
+				<div class="mx-auto block-w">
+					<h2 class="text-center text-white pb-3">Вход в систему</h2>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {% partial account ~ '::signin' %}
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6 col-12 ">
+                                    <h5 class="pt-5 mb-0">Нет аккаунта?</h5>
+                                    <a href="{{ 'register'|page }}">Создать аккаунт!</a>
+                                </div>   
+                                <div class="col-lg-6 col-sm-6 col-12 limonad">
+                                    <a href="{{ 'register'|page }}" class="btn mt-5 btn-outline-white p-2 px-4 bg-transparent border-white rounded-btn-circle w-100 mx-auto d-block">Создать</a>
+                                </div> 
+                            </div>                     
+                        </div>
+                    </div>                    
+			    </div>
+		    </div>
+	    </div>
+    </div>
+</section>    
+
+
+
+<script src="http://roshinjose.com/codepen/jquery_002.js"></script>
+<script src="http://roshinjose.com/codepen/plugins.js"></script>

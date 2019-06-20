@@ -1,0 +1,26 @@
+==
+<form data-request="onUpdate" data-request-files data-request-flash>
+    <div class="zagruzit-foot d-flex">
+    	<img class="pr-4" alt="{{ user.name }}" src="{{ user.avatar|resize(200, 200, {mode: 'crop'}) }}">
+    	<ul class="p-0 mt-4">
+    		<li>
+    		    <label class="border-link text-primary"><i class="fas fa-image pr-3"></i>Загрузить фото
+    		        <input type="file" hidden name="avatar">
+    		    </label>
+    		</li>
+    	<!--     <li class="mt-4"><a class="border-link-danger" href="#"><i class="fas fa-trash-alt pr-3"></i>Удалить</a></li> -->
+    	</ul>
+    </div>
+    <div>
+        <label for="email">Имя</label>
+        <div class="form-group">
+            <input type="text" class="form-control" name="name" value="{{ user.name }}" placeholder="Имя">
+        </div>                         
+        <label for="email">Фамилия</label>
+        <div class="input-group">
+            <input type="text" class="mb-3  form-control" name="surname" value="{{ user.surname }}" placeholder="Фамилия">
+        </div>
+        	<button class="modal-btn mr-5" type="submit">Сохранить</button>                                  
+
+    </div>
+</form>

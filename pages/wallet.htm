@@ -1,0 +1,271 @@
+title = "wallet"
+url = "/wallet"
+layout = "account"
+is_hidden = 0
+
+[viewBag]
+localeUrl[en] = "/wallet"
+
+[payFormComponent]
+paramAmount = "amount"
+paramOrder = "order_id"
+paramCurrency = "currency"
+
+[paykassaPayForm]
+paramAmount = "amount"
+paramOrder = "order_id"
+==
+<?php
+use Shohabbos\Portal\Models\Transfer;
+use Shohabbos\Portal\Models\Payment;
+use Shohabbos\Portal\Jobs\TransferMoney;
+use Shohabbos\Portal\Models\Btctrans;
+use Shohabbos\Portal\Jobs\Withdraw;
+use Shohabbos\Portal\Jobs\BtcGenerateAddress;
+
+function onStart() {
+    $user = Auth::getUser();
+    
+    $transfers = Transfer::where('from_user_id', $user->id)
+        ->orWhere('to_user_id', $user->id)->orderBy('id', 'desc')->paginate(10);
+    
+    $this['transfers'] = $transfers;
+    $this['payments'] = $user->payments()->orderBy('id', 'desc')->paginate(10);
+    $this['btctrans'] = Btctrans::where('user_id', $user->id)->get();
+}
+
+function onGenerateWallet(){
+    $user = Auth::getUser();
+    
+    if (!empty($user->wallet_btc)) {
+        Flash::error(trans('You already have a wallet!'));
+        return;
+    }
+    
+    Queue::push(BtcGenerateAddress::class, [
+        'user_id' => $user->id
+    ]);
+    
+    return Redirect::refresh();
+}
+
+function onTransfersPagination() {
+    $user = Auth::getUser();
+    $this['transfers'] = Transfer::where('from_user_id', $user->id)
+        ->orWhere('to_user_id', $user->id)->orderBy('id', 'desc')->paginate(10, post('page', 1));
+        
+    return [
+        "#transfersTable" => $this->renderPartial('tables/transfers')
+    ];
+}
+
+function onPaymentsPagination() {
+    $user = Auth::getUser();
+    $this['payments'] = $user->payments()->orderBy('id', 'desc')->paginate(10, post('page', 1));
+    return [
+        "#paymentsTable" => $this->renderPartial('tables/payments')
+    ];
+}
+
+function onTransfer() {
+    $user = Auth::getUser();
+    $data = Input::only(['amount', 'user_id', 'comment', 'currency']);
+
+    $messages = [
+        'exists' => trans('User is not found'),
+    ];
+
+    $validator = Validator::make($data, [
+        'comment' => 'string|min:5|max:255',
+        'user_id' => ['string', 'exists:users,id', function ($attribute, $value, $fail) use ($user) {
+            if ($value == $user->id) {
+                $fail('You can not send the tool to yourself');
+            }
+        }],
+        'amount' => ['required', 'numeric', function ($attribute, $value, $fail) use ($user, $data) {
+            $currency = strtolower($data['currency']);
+            
+            if ($currency == 'usd' && $value > $user->balance) {
+                $fail('There are not enough funds in your account.');
+            }
+            
+            if ($currency == 'rub' && $value > $user->balance_rub) {
+                $fail('There are not enough funds in your account.');
+            }
+            
+            if ($currency == 'btc' && $value > $user->balance_btc) {
+                $fail('There are not enough funds in your account.');
+            }
+            
+        }],
+    ], $messages);
+    
+
+    if ($validator->fails()) {
+        throw new ValidationException($validator);
+    }
+    
+    Queue::push(TransferMoney::class, [
+        'from_user_id' => $user->id,
+        'to_user_id' => $data['user_id'],
+        'comment' => isset($data['comment']) ? $data['comment'] : null,
+        'amount' => $data['amount'],
+        'currency' => $data['currency'],
+    ]);
+}
+
+
+function onWithdraw() {
+    $user = Auth::getUser();
+    $data = Input::only(['amount', 'comment', 'currency']);
+
+    $validator = Validator::make($data, [
+        'comment' => 'required|string',
+        'currency' => 'required|string',
+        'amount' => ['required', 'numeric', function ($attribute, $value, $fail) use ($user, $data) {
+            $currency = strtolower($data['currency']);
+
+            if ($currency == 'usd' && $value > $user->balance) {
+                $fail('There are not enough funds in your account.');
+            }
+            
+            if ($currency == 'rub' && $value > $user->balance_rub) {
+                $fail('There are not enough funds in your account.');
+            }
+            
+            if ($currency == 'btc' && $value > $user->balance_btc) {
+                $fail('There are not enough funds in your account.');
+            }
+            
+        }],
+    ]);
+
+    if ($validator->fails()) {
+        throw new ValidationException($validator);
+    }
+    
+    Queue::push(Withdraw::class, [
+        'user_id' => $user->id,
+        'amount' => $data['amount'],
+        'comment' => $data['comment'],
+        'currency' => $data['currency'],
+    ]);
+    
+}
+?>
+==
+<section>
+	<div class="kent">		
+		<div class="container">
+			<h2 class="text-center pt-5 color-text">Мой кошелек</h2>
+			<div class="col-lg-12 d-flex d-md-blog justify-content-center pt-3 text-dark">
+				<a class="text-dark" href="Payments.html"><i class="far fa-credit-card pr-3 pl-5 text-dark"></i><b>Платежи</b></a>
+				<a class="text-dark" href="Money transfers.html"><i class="fas fa-wallet pr-3 pl-5 text-dark"></i><b>Денежные переводы</b></a>
+			</div>
+			<div class="row pt-3 alienware">
+				<div class="col-lg-12">
+					<div class="bacground-color-block">
+						<div class="row">
+							<div class="col-lg-6 col-sm-6 col-12">
+								<h5 class="og-drink01">ПЛАТЕЖИ</h5>
+							</div>
+							<div class="col-lg-6 col-sm-6 col-12 d-flex align-items-center justify-content-end">
+								<button type="button" class="modal-btn mr-3" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-wallet pr-3"></i>ПОПОЛНИТЬ</button>
+								<button type="button" class="mortal mr-3" data-toggle="modal" data-target="#mortal-combat"><i class="far fa-money-bill-wave-alt pr-3"></i>Вывести</button>
+							</div>	
+						</div>
+						<div class="text-color-bg d-flex">
+							<p class="w-50">Способ оплаты</p>
+							<p class="w-25">Сумма</p>
+							<p>Дата</p>						
+						</div>
+						<div class="text-color-bg text-dark d-flex">
+							<p class="w-50">Payyer Wallet</p>
+							<p class="w-25">10 000 KZT</p>
+							<p class="data">12.06.2019</p>
+							<span><i class="far fa-receipt"></i></span>
+						</div>
+						<div class="text-color-bg text-dark d-flex">
+							<p class="w-50">Qiwi Wallet</p>
+							<p class="w-25">8 000 KZT</p>
+							<p class="data">12.06.2019</p>
+							<span><i class="far fa-receipt"></i></span>
+						</div>
+						<div class="text-color-bg text-dark d-flex">
+							<p class="w-50">Payoneer Wallet</p>
+							<p class="w-25">14 000 KZT</p>
+							<p class="data">12.06.2019</p>
+							<span><i class="far fa-receipt"></i></span>
+						</div>
+						<div class="text-color-bg text-dark d-flex">
+							<p class="w-50">WebMoney Wallet</p>
+							<p class="w-25">3 000 KZT</p>
+							<p class="data">12.06.2019</p>
+							<span><i class="far fa-receipt"></i></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+				    <div class="modal-content">
+				    	<div class="container">
+				    		<div class="row">
+				    			<div class="col-lg-8">
+						    		<div class="modal-header">
+									    <h4 class="title-modal">Пополнить баланс</h4>
+				   					</div>
+				   					<div class="modal-body">
+				     		 			<label for="email">Сумма</label>
+		                           		<div class="input-group">
+		                                  	<input type="password" class="mb-3  form-control" name="" placeholder="Введите ID партнера">
+		                            	</div>
+		                            	<button type="button" class="modal-btn mt-3" data-dismiss="modal">ПОЛУЧИТЬ</button>
+				     				</div>
+						    	</div>			     
+			      				<div class="col-lg-4 cola pt-5 pb-5">
+		    						<img src="assets/img/withdraw.png" alt="">		    		
+		    					</div>			     
+							</div>
+			 			</div>	
+			   			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>    
+		    		</div>
+		  		</div>
+			</div>
+			<div class="modal fade" id="mortal-combat" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+				    <div class="modal-content">
+				    	<div class="container">
+				    		<div class="row">
+			    				<div class="col-lg-8">
+						    		<div class="modal-header">
+									    <h4 class="title-modal">Запрос на вывод</h4>
+				   					</div>
+				   					<div class="modal-body">
+				     		 			<label for="email">Сумма (KZT)</label>
+				                       	<div class="input-group">
+				                            <input class="mb-3  form-control" name="" placeholder="Введите ID партнера">
+				                        </div>
+				                        <label for="email">Адрес вашего кошелька</label>
+				                       	<div class="input-group">
+				                            <input class="mb-3  form-control" name="" placeholder="Введите ID партнера">
+				                        </div>
+				                        <button type="button" class="modal-btn mt-3" data-dismiss="modal">Вывод</button>
+				     				</div>
+						    	</div>			   
+			      				<div class="col-lg-4 cola pt-5 pb-5">
+		    						<img src="assets/img/atm.png" alt="">		    		
+		    					</div>			     
+							</div>
+			  			</div>	
+			   			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>    
+		    		</div>
+		  		</div>
+			</div>
+		</div>
+	</div>
+</section>

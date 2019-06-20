@@ -1,0 +1,194 @@
+title = "main"
+url = "/main"
+layout = "account"
+is_hidden = 0
+
+[viewBag]
+localeUrl[en] = "/main"
+==
+<?php
+use Shohabbos\Portal\Jobs\BtcUpdateBalance;
+
+public function onStart() {
+    $user = Auth::getUser();    
+}
+
+function onUpdateBtcBalance(){
+    $user = Auth::getUser();
+    
+    if (empty($user->wallet_btc)) {
+        Flash::error(trans('You have not generated a wallet!'));
+        return;
+    }
+    
+    Queue::push(BtcUpdateBalance::class, [
+        'user_id' => $user->id
+    ]);
+    
+    return [
+        "#btcUpdateBalanceButton" => "",
+        "#btcBalanceValue" => $user->balance_btc
+    ];
+}
+?>
+==
+<section>
+	<div class="kent">
+		<div class="container">
+			<div class="row pt-5">
+				<div class="col-lg-6 col-12 mt-3">
+					<div class="block-karta">
+						<div class="text-block">
+							<div class="balanc">
+								<p class="m-2"><span class="kzt">Баланс USD</span></p>
+							<h2>${{ user.balance ?: 0 }} USD </h2>
+							</div>
+							<div class="block-img">
+								<img src="{{'assets/img/Path 4462.svg'|theme}}" alt="">
+							</div>
+						</div>
+						<div class="link-kart">
+							<a href="{{ 'wallet' | page }}">Пополнить</a>
+							<a href="{{ 'wallet' | page }}">Снять</a>
+							<a href="{{ 'wallet' | page }}">Перевести</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 col-12 mt-3">
+					<div class="block-karta02">
+						<div class="text-block">
+							<div class="balanc">
+								<p class="m-2"><span class="kzt">Блок Баланс</span></p>
+							<h2>${{user.invest_balance ?: 0}} USD</h2>
+							</div>
+							<div class="block-img">
+								<img src="{{'assets/img/123.svg'|theme}}" alt="">
+							</div>
+						</div>
+						<div class="link-kart">
+							<a href="{{ 'wallet' | page }}">Пополнить</a>
+							<a href="{{ 'wallet' | page }}">Снять</a>
+							<a href="{{ 'wallet' | page }}">Перевести</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row pt-4">
+				<div class="col-lg-6 col-12 mt-3">
+					<div class="block-karta">
+						<div class="text-block">
+							<div class="balanc">
+								<p class="m-2"><span class="kzt">Баланс RUB</span></p>
+							<h2>{{ user.balance_rub ?: 0 }} RUB </h2>
+							</div>
+							<div class="block-img">
+								<img src="{{'assets/img/Path 4462.svg'|theme}}" alt="">
+							</div>
+						</div>
+						<div class="link-kart">
+							<a href="{{ 'wallet' | page }}">Пополнить</a>
+							<a href="{{ 'wallet' | page }}">Снять</a>
+							<a href="{{ 'wallet' | page }}">Перевести</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 col-12 mt-3">
+					<div class="block-karta02">
+						<div class="text-block">
+							<div class="balanc">
+								<p class="m-2"><span class="kzt">Баланс Блоков</span></p>
+							<h2>{{user.invest_balance_rub ?: 0}} RUB</h2>
+							</div>
+							<div class="block-img">
+								<img src="{{'assets/img/123.svg'|theme}}" alt="">
+							</div>
+						</div>
+						<div class="link-kart">
+							<a href="{{ 'wallet' | page }}">Пополнить</a>
+							<a href="{{ 'wallet' | page }}">Снять</a>
+							<a href="{{ 'wallet' | page }}">Перевести</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row pt-4">
+				<div class="col-lg-6 col-12 mt-3">
+					<div class="block-karta">
+						<div class="text-block">
+							<div class="balanc">
+								<p class="m-2"><span class="kzt">Баланс BTC</span></p>
+							<h2>{{ user.balance_btc ?: 0 }}</h2>
+							</div>
+							<div class="block-img">
+								<img src="{{'assets/img/Path 4462.svg'|theme}}" alt="">
+							</div>
+						</div>
+						<div class="link-kart">
+							<a href="{{ 'wallet' | page }}">Пополнить</a>
+							<a href="{{ 'wallet' | page }}">Снять</a>
+							<a href="{{ 'wallet' | page }}">Перевести</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 col-12 mt-3">
+					<div class="block-karta02">
+						<div class="text-block">
+							<div class="balanc">
+								<p class="m-2"><span class="kzt">Баланс Блоков</span></p>
+							<h2>{{user.invest_balance_btc ?: 0}} BTC</h2>
+							</div>
+							<div class="block-img">
+								<img src="{{'assets/img/123.svg'|theme}}" alt="">
+							</div>
+						</div>
+						<div class="link-kart">
+							<a href="{{ 'wallet' | page }}">Пополнить</a>
+							<a href="{{ 'wallet' | page }}">Снять</a>
+							<a href="{{ 'wallet' | page }}">Перевести</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row pt-4 alienware">
+				<div class="col-lg-12">
+					<div class="bacground-color-block">
+						<h5 class="og-drink">ИСТОРИЯ ТРАНЗАКЦИЙ</h5>
+						<div class="text-color-bg d-flex">
+							<p class="w-25">Способ оплаты</p>
+							<p class="w-25">Сумма</p>
+							<p class="w-25">Система оплаты</p>
+							<p class="w-25">Дата</p>
+						</div>
+						{% for payment in user.payments().orderBy('id', 'desc').limit(10).get() %}
+    						<div class="text-color-bg text-dark d-flex">
+    							<p class="w-25">
+    							    {% if payment.is_buy %}
+    							        Пополнение
+    							    {% else %}
+    							        Снятие
+    							    {% endif %}
+    							</p>
+    							
+    						    {% if payment.currency == 'usd' %}
+      							    <p class="w-25">${{payment.amount}} USD</p>
+    							    <p class="w-25">Payyer</p>
+                              {% else %}
+                                  <p class="w-25">{{payment.amount}} RUB</p>
+    							    <p class="w-25">Payyer RUB</p>
+                              {% endif %}
+    							<p class="w-25">{{ payment.date }}</p>
+    						</div>
+    					{% else %}
+    					    <div class="text-color-bg text-dark d-flex">
+    							<p class="w-100 text-center">Пока нет платежей</p>
+    						</div>
+    					{% endfor %}
+					</div>
+				</div>
+			</div>
+		
+		</div>
+	</div>
+</section>

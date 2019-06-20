@@ -1,0 +1,41 @@
+title = "team"
+url = "/team"
+layout = "account"
+is_hidden = 0
+==
+<section>
+	<div class="kent">
+		<div class="container">
+			<h2 class="text-center pt-5 color-text"></h2>
+			<div class="col-lg-12 d-flex d-md-blog justify-content-center pt-3 text-dark">
+			</div>
+			<div class="row pt-3 alienware">
+				<div class="col-lg-12">
+					<div class="bacground-color-block">
+						<div class="row">
+							<div class="col-lg-7 col-sm-12">
+								<h5 class="og-drink01">{{'Ваша реферальная команда'|_}}</h5>
+							</div>
+							<div class="col-lg-5 col-sm-12 col-12 d-flex align-items-center justify-content-end pr-5">
+								<a href="#">{{'register'|page({ref: user.id})}}<i class="fas fa-file pl-2"></i></a>
+							</div>	
+						</div>
+						<div class="text-color-bg d-flex pr-5">
+							<p class="win">{{'Пользователь'|_}}</p>
+							<p class="w-25">{{'Последняя активность'|_}}</p>
+							<p>{{'Дата регистрации'|_}}</p>						
+						</div>
+					{% for child in user.childs %}
+						<div class="text-color-bg text-dark d-flex  align-items-center">
+							<img  class="pr-3" src="{{child.avatar.path|resize(48, 48)}}" alt="{{user.name}}">
+							<p class="w-50">{{child.name}}{{child.surname}}</p>
+							<p class="w-25">{{child.last_login}}</p>
+							<p>{{child.created_at}}</p>
+						</div>
+					{% endfor %}	
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

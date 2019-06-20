@@ -1,0 +1,191 @@
+title = "blocks"
+url = "/blocks"
+layout = "account"
+is_hidden = 0
+
+[viewBag]
+localeUrl[en] = "/blocks"
+==
+<?php
+use Shohabbos\Portal\Models\Block;
+use Shohabbos\Portal\Models\Tree;
+use Shohabbos\Portal\Jobs\SetRoot;
+use Shohabbos\Portal\Jobs\BuyBlock;
+
+public function onStart() {
+    $user = Auth::getUser();
+    
+    $blocks = Block::withCount(['tree' => function($query) use ($user) {
+        $query->where('user_id', $user->id);
+    }])->where('currency', 'usd')->get();
+    
+    $this['blocks'] = $blocks;
+}
+
+
+public function onBuyBlock() {
+    $user = Auth::getUser();
+    $data = Input::only(['block_id', 'parent_id']);
+    
+    $messages = [
+        'exists' => 'Partnet not found'
+    ];
+    
+    $validator = Validator::make($data, [
+        'block_id' => ['required', function ($attribute, $value, $fail) use ($data, $user) {
+            $block = Block::find($value);
+            $commonBalance = $user->balance + $user->invest_balance;
+            if ($commonBalance < $block->amount) {
+                 $fail('There are not enough funds in your account.');
+            }
+        }],
+        'parent_id' => ['required', 'exists:users,id', function ($attribute, $value, $fail) use ($data) {
+            $tree = Tree::where('user_id', $value)->where('block_id', $data['block_id'])->first();
+            if (!$tree) {
+                $fail('There is no such user in this block.');
+            }
+        }],
+    ], $messages);
+    
+    if ($validator->fails()) {
+        throw new ValidationException($validator);
+    }
+    
+    Queue::push(BuyBlock::class, [
+        'user_id' => $user->id,
+        'block_id' => $data['block_id'],
+        'parent_id' => $data['parent_id'],
+    ]);
+}
+
+
+
+public function onBuyBlockModal() {
+    $data = Input::all();
+    $validator = Validator::make($data, [
+        'block_id' => 'required',
+    ]);
+    
+    if ($validator->fails()) {
+        throw new ValidationException($validator);
+    }
+    
+    $this['blockId'] = $data['block_id'];
+    
+    return [
+        '.buy-block-modal-content' => $this->renderPartial('popups/buy-block')
+    ];
+}
+?>
+==
+<section>
+	<div class="kent">
+		<div class="container">
+			<h2 class="text-center pt-5 color-text">Блоки</h2>
+			<div class="row pt-5 alienware">
+			    {% for key, item in blocks %}
+				<div class="col-lg-3 col-md-6 col-ms-12 mt-4">
+					<div class="card mall">
+					  	<div class="card-body">
+					    	<h2 class="card-title">{{ key + 1 }}</h2>
+					    	<p class="text-center"><b>{{item.title}}</b></p>								    
+					   		<button type="button" class="card-button modal-btn" data-toggle="modal" data-target="#exampleModalCenter">КУПИТЬ</button>
+					  	</div>
+					</div>
+				</div>
+				{% endfor %}
+				<div class="col-lg-3 col-md-6 col-ms-12 mt-4">
+					<div class="card mall">
+				    	<div class="card-body">
+						    <h2 class="card-title">2</h2>
+						    <p class="text-center"><b>бЛОК</b></p>							    
+						  	<button type="button" class="card-button modal-btn" data-toggle="modal" data-target="#exampleModalCenter">КУПИТЬ</button> 
+					 	</div>
+					</div>
+				</div>		
+				<div class="col-lg-3 col-md-6 col-ms-12 mt-4">
+					<div class="card mall">
+					  	<div class="card-body">
+					    	<h2 class="card-title">3</h2>
+					     	<p class="text-center"><b>бЛОК</b></p>								    
+					  		<button type="button" class="card-button modal-btn" data-toggle="modal" data-target="#exampleModalCenter">КУПИТЬ</button> 
+					  	</div>
+					</div>
+				</div>		
+				<div class="col-lg-3 col-md-6 col-ms-12 mt-4">
+					<div class="card mall">
+						<div class="card-body">
+						    <h2 class="card-title">4</h2>
+						    <p class="text-center"><b>бЛОК</b></p>								    
+						   	<button type="button" class="card-button modal-btn" data-toggle="modal" data-target="#exampleModalCenter">КУПИТЬ</button>
+						</div>
+					</div>
+				</div>	
+				<div class="col-lg-3 col-md-6 col-ms-12 mt-4">
+					<div class="card mall">
+						<div class="card-body">
+						    <h2 class="card-title">5</h2>
+						    <p class="text-center"><b>бЛОК</b></p>								    
+						  	<button type="button" class="card-button modal-btn" data-toggle="modal" data-target="#exampleModalCenter">КУПИТЬ</button> 
+						</div>
+					</div>
+				</div>		
+				<div class="col-lg-3 col-md-6 col-ms-12 mt-4">
+					<div class="card mall">
+						<div class="card-body">
+						    <h2 class="card-title">6</h2>
+						    <p class="text-center"><b>бЛОК</b></p>						    
+						  	<button type="button" class="card-button modal-btn" data-toggle="modal" data-target="#exampleModalCenter">КУПИТЬ</button> 
+						</div>
+					</div>
+				</div>		
+				<div class="col-lg-3 col-md-6 col-ms-12 mt-4">
+					<div class="card mall">
+						<div class="card-body">
+						    <h2 class="card-title">7</h2>
+						    <p class="text-center"><b>бЛОК</b></p>								    
+						  	<button type="button" class="card-button modal-btn" data-toggle="modal" data-target="#exampleModalCenter">КУПИТЬ</button> 
+						</div>
+					</div>
+				</div>		
+				<div class="col-lg-3 col-md-6 col-ms-12 mt-4">
+					<div class="card mall">
+						<div class="card-body">
+						    <h2 class="card-title">8</h2>
+						    <p class="text-center"><b>бЛОК</b></p>								    
+						    <button type="button" class="card-button modal-btn" data-toggle="modal" data-target="#exampleModalCenter">КУПИТЬ</button>
+						</div>
+					</div>
+				</div>
+				<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+					    <div class="modal-content">
+					    	<div class="container">
+					    		<div class="row">
+					    			<div class="col-lg-8">
+							    		<div class="modal-header">
+										    <h4 class="title-modal">Купить блок</h4>
+					   					</div>
+					   					<div class="modal-body">
+					     		 			<label for="email">ID партнера</label>
+		                               	<div class="input-group">
+		                                    <input type="password" class="mb-3 form-control" name="" placeholder="Введите ID партнера">
+		                                </div>
+		                                	<a class="modal-btn mt-3" href="{{'main_block'|page}}">КУПИТЬ</a>
+					     				</div>
+					    			</div>			     
+			      					<div class="col-lg-4 cola pt-5 pb-5">
+		    							<img src="{{'assets/img/Union 5.png'|theme}}" alt="">
+		    						</div>			     
+								</div>
+			  				</div>	
+			   				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					            <span aria-hidden="true">&times;</span>
+							</button>    
+		    			</div>
+		  			</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,22 @@
+==
+<form role="form" data-request="onSignin" data-request-flash>
+    {% flash %}
+        <div class="alert alert-{{ type }}">
+            {{ message }}
+        </div>
+    {% endflash %}
+    <div class="form-group">
+        <label class="text-white" for="email" >Email</label>
+        <input type="email" class="form-control" name="login" placeholder="Email">
+    </div>                                 
+    <label class="text-white" for="email">Пароль</label>
+    <div class="input-group">
+        <input type="password" class="form-control input-group-prepend border-right-0 mb-3" name="password" placeholder="Пароль">
+        <div class="input-group-append mb-3">
+            <div class="input-group-text border-left-0 input-styly">
+                <a href="{{ 'reset'|page }}">Забыл пароль?</a>
+            </div>
+        </div>
+    </div>                               
+    <button type="submit" class="btn btn-outline-white p-2 px-4 bg-transparent border-white rounded-btn-circle text-white w-100 mx-auto d-block bg-red-blue"><span><i class="far fa-key pr-2"></i></span>Войти</button>
+</form>

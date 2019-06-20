@@ -1,0 +1,51 @@
+title = "checks"
+url = "/checks"
+layout = "account"
+is_hidden = 0
+
+[viewBag]
+localeUrl[en] = "/checks"
+==
+<?php
+function onStart() {
+    $user = Auth::getUser();
+}
+?>
+==
+<section>
+	<div class="kent">
+		<div class="container">
+			<h2 class="text-center pt-5 color-text">{{'Чеки'|_}}</h2>
+			<div class="container">
+				<div class="row pt-3 alienware">
+					<div class="col-lg-12">
+					
+					{% for transaction in user.blockTransactions().with('block').where('type', 0).get() %}		
+						<div class="d-sm-flex">
+							<div class="background-images-div mt-5 mb-5 mx-auto">
+								<div class="border-img-gold"><img class="" src="{{'assets/img/Ellipse665.png'|theme}}" alt=""></div>
+								<span>{{transaction.date|date('Y-m-d')}}</span>	
+								<img class="addlass" src="{{ user.avatar|resize(200, 200, {mode: 'crop'}) }}" alt="{{user.name}}">
+								<h3 class="col-gold">{{'Поздравляем вас с получением выплаты'|_}}</h3>
+								<p class="text-col">{{user.name}} {{user.surname}}</p>
+							</div>
+							<div class="sitro mb-5">
+								<img class="flot-right" src="{{'assets/img/Union 6.png'|theme}}" alt="">
+								{% if transaction.amount > 1 %}                                    
+                                    <h1 class="flot text-center">{{transaction.amount|round}} {{transaction.block.currency}} <span class="sparta"></span></h1>
+                                {% else %}
+                                    <h1 class="flot text-center">{{transaction.amount}} {{transaction.block.currency}} <span class="sparta"></span></h1>           
+                                {% endif %}								
+							</div>
+				  		</div>
+				  		{% else %}
+				  		<div class="text-center">
+                            {{'Checks not found'|_}}
+                        </div>
+                        {% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
