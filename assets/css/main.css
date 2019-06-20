@@ -125,7 +125,9 @@ color: #fff;
 	height: 40px;
 	padding-top: 28px;
 }
-
+.form-control:focus {
+background-color:none;
+}
 .ul-main {
 	float: right;
 	display: flex;
@@ -260,7 +262,7 @@ color: #fff
 .text-block {
 	display: flex;
 	justify-content: space-between;
-	    padding: 30px 20px 40px 20px;
+	padding: 13px 20px 15px 20px;
 }
 
 .div-octain a {
