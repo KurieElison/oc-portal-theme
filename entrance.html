@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Tirex</title>
+	<link rel="stylesheet" href="assets/css/bootstrap.css">
+	<link rel="stylesheet" href="assets/css/all.css">
+	<link rel="stylesheet" href="assets/css/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	
+</head>
+<body>
+	
+	<div id="particles-js">
+      <canvas height="651" width="1366" style="width: 100%; height: 100%;"></canvas>
+ </div>
+<div class="wrapper d-flex flex-column align-items-between">	
+	
+<header class="header-block">
+        <div class="container-fluid">
+            <div class="row col-block">
+                <div class="col-lg-6 col-sm-4 col-4">
+                    <div class="div d-flex">
+                        <img src="assets/img/Union 3.png" alt="">
+                    </div>
+                    <span class="miracle">Portal - MK Production</span>
+                </div>
+                <div class="col-lg-6 col-sm-8 col-8">
+                    <ul class="ul-main">
+                        
+                           <li><a href="tel:(+998) 99 814-07-93">(+998) 99 814-07-93</a> </li>
+                           <li> <a href="#">Частые Вопросы</a></li>
+                            <li><a href="#">Контакты</a></li>
+                       
+                    </ul>
+                   
+                </div>
+            </div>
+        </div>
+
+</header>
+<section class="h-50">
+	<div class="container h-100">
+		<div class="row h-100">
+			<div class="col-lg-12 d-flex align-items-center text-white mx-0">	
+				<div class="mx-auto block-w">
+					<h2 class="text-center pb-3">Вход в систему</h2>
+                    <div class="row">
+                        <div class="col-lg-12">
+                          <form action="">
+                              <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control input-styly" nemr="email" placeholder="Email">
+                              </div>
+                             
+                                    <label for="email">Пароль</label>
+                                    <div class="input-group">
+                                                <input type="password" class="form-control input-styly input-group-prepend border-right-0 mb-3 text-white" name="password" placeholder="Пароль">
+                                    <div class="input-group-append mb-3">
+                                                <div class="input-group-text border-left-0 input-styly">
+                                                    <a href="">Забыл пароль?</a>
+                                                </div>
+                                            </div>
+                                    </div>
+                           
+                                <button class="btn btn-outline-white p-2 px-4 bg-transparent border-white rounded-btn-circle text-white w-100 mx-auto d-block bg-red-blue"><span><i class="far fa-key pr-2"></i></span>Войти</button>
+
+                            </form> 
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6 col-12 ">
+                                <h5 class="pt-5 mb-0">Нет аккаунта?</h5>
+                                <a  href="#">Создать аккаунт!</a>
+                             </div>   
+                                <div class="col-lg-6 col-sm-6 col-12 limonad">
+                                   <button class="btn mt-5 btn-outline-white p-2 px-4 bg-transparent border-white rounded-btn-circle text-white w-100 mx-auto d-block">Создать</button>
+                                </div> 
+                            </div>                     
+                         </div>
+                    </div>
+                      
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<footer> 
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between bg-white p-4">
+                <div class="flex-item d-flex align-items-center">
+                    <span class="allusive m-0">Договор оферты</span>
+                </div>
+                <div class="flex-item d-flex align-items-center">
+                    <span class=" m-0">Выбор языка</span>
+                    <a class="pr-2 pl-2" href="#"><img src="assets/img/russia.png" alt=""></a>
+                    <a class="pr-2 pl-2" href="#"><img src="assets/img/spain.png" alt=""></a>
+                    <a class="pr-2 pl-2" href="#"><img src="assets/img/united-kingdom.png" alt=""></a>
+                    <a class="why" href="#"><i class="fas fa-question"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+
+
+
+
+ <script src="http://roshinjose.com/codepen/jquery_002.js"></script>
+  <script src="http://roshinjose.com/codepen/plugins.js"></script>
+<script src="assets/js/fontawesome.min.js"></script>
+<script>
+	var app = {};
+app.ajax = 4;
+app.ui = {
+    particle:false,
+    particles:function(){
+        if($('body').hasClass('white')){
+            nb = 85;
+        }else {
+            nb = 95;
+        }
+        particlesJS('particles-js', {
+            particles: {
+                background: '#B53E73',
+                color_random: false,
+                shape: 'circle', // "circle", "edge" or "triangle"
+                opacity: {
+                    opacity: 3,
+                    anim: {
+                        enable: true,
+                        speed: 1.5,
+                        opacity_min: 0,
+                        sync: false
+                    }
+                },
+                size: 5,
+                size_random: true,
+                nb: nb,
+                line_linked: {
+                    enable_auto: true,
+                    distance: 130,
+                    color: '#273CCE', // particles line color
+                    opacity: 1,
+                    width: 1,
+                    condensed_mode: {
+                        enable: true,
+                        rotateX: 600,
+                        rotateY: 600
+                    }
+                },
+                anim: {
+                    enable: true,
+                    speed: 2
+                }
+            },
+            interactivity: {
+                enable: true,
+                mouse: {
+                    distance: 500
+                },
+                detect_on: 'window', // "canvas" or "window"
+                mode: 'grab', // "grab" of false
+                line_linked: {
+                    opacity: .5
+                },
+                events: {
+                    onclick: {
+                        enable: true,
+                        mode: 'push', // "push" or "remove"
+                        nb: 2
+                    },
+                    onresize: {
+                        enable: true,
+                        mode: 'out', // "out" or "bounce"
+                        density_auto: false,
+                        density_area: 800 // nb_particles = particles.nb * (canvas width *  canvas height / 1000) / density_area
+                    }
+                }
+            },
+            /* Retina Display Support */
+            retina_detect: true
+        });
+    },
+}
+
+$(function () {
+    app.ui.particles();
+    if  (Modernizr.localstorage) {
+        if(localStorage.getItem("color") == "white") {
+            $('body').addClass('white');
+        }
+    }
+});
+
+var delay = (function(){
+    var timer = 0;
+    return function(callback, ms){
+        clearTimeout (timer);
+        timer = setTimeout(callback, ms);
+    };
+})();
+
+$(function() {
+  function init() {
+    $('[data-behaviour="toggle-menu-icon"]').on('click', toggleMenuIcon);
+    $('[data-behaviour="toggle-link-icon"]').on('click', toggleSubMenu);
+  };
+  
+  function toggleMenuIcon() {
+    $(this).toggleClass('menu-icon--open');
+    $('[data-element="toggle-nav"]').toggleClass('nav--active');
+  };
+  
+  function toggleSubMenu() {
+    $(this).toggleClass('nav__link--plus nav__link--minus');
+    $('[data-behaviour="toggle-sub-menu"]').slideToggle('nav__sub-list--active');
+  };
+  
+  init()
+});
+</script>
+</body>
+</html>
