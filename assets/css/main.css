@@ -230,7 +230,6 @@ background: linear-gradient( 100deg, #20D98B, #626DE5);
 	width: 300px;
 	background: linear-gradient( 100deg, #20D98B, #626DE5);	
 	    border-radius: 0px 50px 50px 0px;
-    padding: 20px 20px 20px 20px;
 }
 .div-block-button {
 	background: linear-gradient( 100deg, #20D98B, #626DE5);	
@@ -482,7 +481,11 @@ background: linear-gradient( 100deg, #20D98B, #626DE5);
     padding-left: 33px;
 }
 .modal-link  a {
-	color: #fff;
+	    color: #fff;
+    display: block;
+    /* width: 100%; */
+    height: 100%;
+    padding: 20px 20px 20px 20px;
 }
 .modal-link  a:hover {
 	text-decoration: none;
@@ -594,7 +597,7 @@ background: linear-gradient( 100deg, #20D98B, #626DE5);
 }
 
 .kent{
-background-image: url('../img/Group 2090.png');
+background-image: url('../img/Group2090.png');
 background-size: auto;
 			
 }
@@ -690,7 +693,7 @@ background-size: auto;
 	padding-left: 20px;
 }
 .sitro {
-background-image: url('../img/Group 2350.png');
+background-image: url('../img/Group2350.png');
     width: 600px;
     margin-left: -40px;
     background-size: 100% 100%;
@@ -820,7 +823,7 @@ display: none;
 	display: block;
 }
 .sitro {
-	background-image: url('../img/Rectangle 269.png');
+	background-image: url('../img/Rectangle269.png');
 	margin-left: 0;
 	margin-top: -50px;
 	margin-right: 0;
