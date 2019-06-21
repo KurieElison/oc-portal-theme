@@ -1,0 +1,120 @@
+title = "BTC blocks"
+url = "/btc-blocks"
+layout = "account"
+is_hidden = 0
+==
+<?php
+use Shohabbos\Portal\Models\Block;
+use Shohabbos\Portal\Models\Tree;
+use Shohabbos\Portal\Jobs\SetRoot;
+use Shohabbos\Portal\Jobs\BuyBlock;
+
+public function onStart() {
+    $user = Auth::getUser();
+    
+    $blocks = Block::withCount(['tree' => function($query) use ($user) {
+        $query->where('user_id', $user->id);
+    }])->where('currency', 'btc')->get();
+    
+    $this['blocks'] = $blocks;
+}
+
+
+public function onBuyBlock() {
+    $user = Auth::getUser();
+    $data = Input::only(['block_id', 'parent_id']);
+    
+    if (input('step')) {
+        return [
+            "#user-result" => 'shox'    
+        ];    
+    }
+    
+    $messages = [
+        'exists' => 'Partnet not found'
+    ];
+    
+    $validator = Validator::make($data, [
+        'block_id' => ['required', function ($attribute, $value, $fail) use ($data, $user) {
+            $block = Block::find($value);
+            
+            if ($user->getCommonBalance('btc') < $block->amount) {
+                 $fail('There are not enough funds in your account.');
+            }
+        }],
+        'parent_id' => ['required', 'exists:users,id', function ($attribute, $value, $fail) use ($data) {
+            $tree = Tree::where('user_id', $value)->where('block_id', $data['block_id'])->first();
+            if (!$tree) {
+                $fail('There is no such user in this block.');
+            }
+        }],
+    ], $messages);
+    
+    if ($validator->fails()) {
+        throw new ValidationException($validator);
+    }
+    
+    Queue::push(BuyBlock::class, [
+        'user_id' => $user->id,
+        'block_id' => $data['block_id'],
+        'parent_id' => $data['parent_id'],
+    ]);
+}
+
+
+
+public function onBuyBlockModal() {
+    $data = Input::all();
+    $validator = Validator::make($data, [
+        'block_id' => 'required',
+    ]);
+    
+    if ($validator->fails()) {
+        throw new ValidationException($validator);
+    }
+    
+    $this['blockId'] = $data['block_id'];
+    
+    return [
+        '.buy-block-modal-content' => $this->renderPartial('popups/buy-block')
+    ];
+}
+?>
+==
+<section>
+	<div class="kent">
+		<div class="container">
+			<h2 class="text-center pt-5 color-text">Блоки</h2>
+			<div class="row pt-5 alienware">
+			    {% for key, item in blocks %}
+				<div class="col-lg-3 col-md-6 col-ms-12 mt-4">
+					<div class="card mall">
+					  	<div class="card-body">
+					    	<h2 class="card-title">{{ key + 1 }}</h2>
+					    	<p class="text-center"><b>{{item.title}}</b></p>
+					    	<p class="text-center"><b>{{item.content}}</b></p>
+					    	{% if item.tree_count %}
+					    	    <a href="{{ 'block'|page({id: item.id}) }}" class="card-button modal-btn"> Открыть блок </a>
+					   		{% else %}
+					   		    <button data-request="onBuyBlockModal"
+                                        data-request-data="block_id: {{item.id}}"
+                                        data-request-flash
+                                        data-request-success="$('#exampleModalCenter').modal('show')"
+                                        class="card-button modal-btn">КУПИТЬ</button>
+					  	    {% endif %}
+					  	</div>
+					</div>
+				</div>
+				{% endfor %}
+				
+			</div>
+		</div>
+	</div>
+</section>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content buy-block-modal-content">
+	    	Loading...    
+		</div>
+  	</div>
+</div>
