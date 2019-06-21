@@ -1,16 +1,31 @@
+[alternateHrefLangElements]
 ==
 <footer> 
 	<div class="container-fluid">
-		<div class="row bg-white pr-5 pl-5 pt-3 pb-3">
+		<div class="row bg-white pr-5 pl-5 pt-4 pb-1">
 			<div class="col-lg-6 col-sm-6 col-12">
 				<p class="allusive m-0">Договор оферты</p>
 			</div>
 			<div class="col-lg-6 col-sm-6 col-12 tea">
 			<p class=" m-0">Выбор языка</p>
-			<a class="pr-2 pl-2" href="#"><img src="{{'assets/img/russia.png'|theme}}" alt=""></a>
-			<a class="pr-2 pl-2" href="#"><img src="{{'assets/img/spain.png'|theme}}" alt=""></a>
-			<a class="pr-2 pl-2" href="#"><img src="{{'assets/img/united-kingdom.png'|theme}}" alt=""></a>
-			<a class="why" href="#"><i class="fas fa-question"></i></a>
+			
+
+			<ul class="language_selection">
+		    {% for code, name in locales %}
+				<li class="{{ code == activeLocale ? 'active' }}">
+				    <a class="language_selection_{{ code }}" href="{{''|app}}{{ '/' ~ code ~ localeLinks[code] }}">
+				            {{ name }}
+				    </a>
+				</li>
+			{% endfor %}
+			
+			{% for locale, alternateUrl in alternateHrefLangElements.locales %}                
+            
+			<a class="pr-2 pl-2" hreflang="{{ locale }}" href="{{ url(alternateUrl) }}"><img src="{{locale == 'ru' ? 'assets/img/russia.png'|theme : 'assets/img/united-kingdom.png'|theme}}" alt=""></a>
+			
+			{% endfor %}
+			
+			<a class="why" href="{{'profile-faq'|page}}"><i class="fas fa-question"></i></a>
 			</div>
 		</div>
 	</div>

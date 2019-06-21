@@ -23,9 +23,9 @@ function onStart() {
 					{% for transaction in user.blockTransactions().with('block').where('type', 0).get() %}		
 						<div class="d-sm-flex">
 							<div class="background-images-div mt-5 mb-5 mx-auto">
-								<div class="border-img-gold"><img class="" src="{{ user.avatar|resize(200, 200, {mode: 'crop'}) }}" alt=""></div>
-								<span>{{transaction.date|date('Y-m-d')}}</span>	
-								<img class="addlass" src="{{'assets/img/Ellipse665.png'|theme}}" alt="{{user.name}}">
+								<img class="checks-img" src="{{ user.avatar|resize(200, 200, {mode: 'crop'}) }}" alt="">
+								<span class="data-text">{{transaction.date|date('Y-m-d')}}</span>	
+								<img class="addlass" src="{{'assets/img/MaskGroup6.png'|theme}}" alt="{{user.name}}">
 								<h3 class="col-gold">{{'Поздравляем вас с получением выплаты'|_}}</h3>
 								<p class="text-col">{{user.name}} {{user.surname}}</p>
 							</div>
@@ -49,3 +49,16 @@ function onStart() {
 		</div>
 	</div>
 </section>
+
+<style>
+.checks-img {
+border-radius:50%;
+height:200px;
+width:200px;
+}
+.data-text {
+float:right; 
+padding-right: 50px;
+color: #fff;
+}
+</style>

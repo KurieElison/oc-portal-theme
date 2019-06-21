@@ -7,14 +7,14 @@
     {% endflash %}
     <div class="form-group">
         <label class="text-white" for="email" >Email</label>
-        <input type="email" class="form-control" name="login" placeholder="Email">
+        <input type="email" class="form-control input-header" name="login" placeholder="Email">
     </div>                                 
     <label class="text-white" for="email">Пароль</label>
     <div class="input-group">
-        <input type="password" class="form-control input-group-prepend border-right-0 mb-3" name="password" placeholder="Пароль">
+        <input type="password" class="form-control input-group-prepend border-right-0 mb-3 input-header" name="password" placeholder="Пароль">
         <div class="input-group-append mb-3">
             <div class="input-group-text border-left-0 input-styly">
-                <a href="{{ 'reset'|page }}">Забыл пароль?</a>
+                <a class="text-secondary" href="{{ 'reset'|page }}">Забыл пароль?</a>
             </div>
         </div>
     </div>                               

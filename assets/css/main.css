@@ -161,7 +161,6 @@ ul li {
 }
 .wrapper {
 	background-color: #000A76;
-	height: 100vh;
 	z-index: 0;
 	
 }
@@ -192,6 +191,7 @@ ul li {
 	border-radius: 50%;
 	line-height:60px;
 	font-size:20px;
+	margin:0px 5px 0 5px;;
 }
 .text-footer {
 color:#707070;  
@@ -306,7 +306,9 @@ color: #fff
     text-align: right;
         border-right: 1px solid #E6E6E6;
     height: 70px;
+    width:100px;
     padding-right: 20px;
+    z-index:10;
 }
 
 .menu__icon {
@@ -396,6 +398,7 @@ color: #fff
 
 .menu.menu_state_open .menu__links {
   display: block;  
+  z-index:10;
 }
 
 
@@ -404,15 +407,15 @@ color: #fff
   }
   
   .menu__links {
-    position: fixed;
+       position: static;
     display: none;
     top: 0;
     right: 0;
-        text-align: -webkit-left;
+    text-align: -webkit-left;
     left: 0;
     width: 245px;
-    margin-top: 100px;
-    z-index: 1000;
+    margin-top: 40px;
+    margin-left: -24px;
     overflow: auto;
   }
   
@@ -553,8 +556,12 @@ color: #fff
 }
 .kent {
 	background-color: #EAEFF6;
-	  min-height: calc(95vh - 80px);
+	  min-height: calc(92vh - 80px);
+	  z-index:0;
 
+}
+.input {
+background:none;    
 }
 .fonts-home {
 font-size: 50px;    
@@ -606,7 +613,7 @@ height:200px;;
 	background-color: #eafff;
 	border-top: 1px solid #707070;
 	padding-top: 20px;
-	margin-top: 100px;
+	/*margin-top: 100px;*/
     padding: 30px 0 10px 20px;
 }
 .none-block {
@@ -735,6 +742,9 @@ width:60px;
     
      
 }
+.main-block-suma {
+width:25%;    
+}
 .border-do-blue-4 {
 	border-left: dotted 10px #2B57D3;
 }
@@ -797,15 +807,11 @@ background-image: url('../img/Group2350.png');
 .fa-youtube {
 	color: red;
 }
-
-
+.btn-outline-white {
+ margin-right:15px;   
+}
 .lock {
-	    position: fixed;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding-top:30px;
-    padding-bottom:15px;
+ 
     z-index: 1030;
         border-top: 1px solid #607d8b73;
 }
@@ -819,6 +825,14 @@ background-image: url('../img/Group2350.png');
 .dark {
 	color: #2B57D3;
 }
+.footer-border-top {
+padding-top:20px;
+    border-top: 1px solid #707070;
+}
+.home-p  {
+padding-top:15rem;
+padding-bottom:16rem;
+}
 .card-block-style {
 	background-color: #fff;
 	border:none;
@@ -827,11 +841,16 @@ background-image: url('../img/Group2350.png');
 
 .input-styly {
 	background-color: #0000;
+	color:#707070;
 }
 
 @media screen and (max-width:1000px){
 	.block-w {
 	width: 85%;
+}
+.home-p  {
+  padding-top:5rem;  
+  padding-bottom:5rem;
 }
 .none-link {
 	display: none;
@@ -856,7 +875,7 @@ background-image: url('../img/Group2350.png');
     overflow: auto; 
 }
 .plohospal {
-width:200px;  
+width:245px;  
 }
 
 }
@@ -871,20 +890,21 @@ width:200px;
 	
 }
 @media screen and (max-width: 575px) {
-.wrapper {
-height:auto;
-}	
+
 .miracle {
 	display: none;
 }
-.lock {
-	display: block;
-	    position: inherit;
+
+.flex-footer {
+flex-wrap:wrap;    
 }
 .limonad {
 margin-bottom: 30px;
 	
 }
+.btn-outline-white {
+ margin-right:0px;   
+} 
 .text-footer {
 	margin: 0 auto;
 	padding-bottom: 30px;
@@ -900,6 +920,9 @@ margin-bottom: 30px;
 }
 .real {
 	width: 100%;
+}
+.navbar-nav .dropdown-menu {
+    right: -60px;    
 }
 .tea {
 	justify-content: center;
@@ -927,13 +950,14 @@ display: none;
 	margin-right: 0;
 	width: 100%;
 }
-.lock {
-padding-top:10px;    
-}
 .modal-dialog {
 margin:  0 auto;    
 }
-
-
-
-
+.bar-white {
+display:none;    
+}
+.main-block-suma {
+width:100%;  
+color: #000;
+padding: 14px;
+}

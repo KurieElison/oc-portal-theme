@@ -155,14 +155,14 @@ function onUpdateBtcBalance(){
 				<div class="col-lg-12">
 					<div class="bacground-color-block">
 						<h5 class="og-drink">ИСТОРИЯ ТРАНЗАКЦИЙ</h5>
-						<div class="text-color-bg d-flex">
-							<p class="w-25">Способ оплаты</p>
-							<p class="w-25">Сумма</p>
-							<p class="w-25">Система оплаты</p>
-							<p class="w-25">Дата</p>
+						<div class="text-color-bg  d-block d-sm-flex">
+							<p class="main-block-suma">Способ оплаты</p>
+							<p class="main-block-suma">Сумма</p>
+							<p class="main-block-suma">Система оплаты</p>
+							<p class="main-block-suma">Дата</p>
 						</div>
 						{% for payment in user.payments().orderBy('id', 'desc').limit(10).get() %}
-    						<div class="text-color-bg text-dark d-flex">
+    						<div class="text-color-bg text-dark d-block">
     							<p class="w-25">
     							    {% if payment.is_buy %}
     							        Пополнение
