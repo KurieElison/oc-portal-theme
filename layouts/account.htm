@@ -1,6 +1,34 @@
 [session]
 security = "user"
-redirect = "main"
+redirect = "home"
+==
+<?php
+use RainLab\User\Models\User;
+
+public function onCheck() {
+    $id = null;
+    $result = "<div class='alert alert-danger'> User not found!</div>";
+    
+    if (input('parent_id')) {
+       $id = input('parent_id');
+    } elseif (input('user_id')) {
+        $id = input('user_id');
+    }
+    
+    $user = User::where('id', $id)->first();
+    
+    $image = isset($user->avatar->path) ? $user->avatar->path : "https://loremflickr.com/50/60/coin";
+    
+    if ($user) {
+        $result = "<div class='alert alert-info'> <img style='width: 30px' class='mr-2' src='{$image}'> <strong> {$user->name} {$user->surname} </strong> </div>";
+    }
+    
+    
+    return [
+        "#user-result" => $result
+    ];
+}
+?>
 ==
 <!DOCTYPE html>
 <html lang="en">

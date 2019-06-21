@@ -1,0 +1,72 @@
+==
+<div class="row">
+	<div class="col-12">
+		<div class="div-blog-flash mx-auto mt-5 d-flex">
+			<div class="div-img-alienware border-white">
+				<img class="" src="{{mytree.user.avatar.path|resize(144, 144)}}" alt="{{ item.user.name }}">
+			</div>
+			<div class="text-konstantin pt-4 pl-4">
+				<p class="text-white  wight-text">{{ mytree.user.name }}</p>
+				<div class="span-style">{{ mytree.user_id }}</div>
+				{% if user.id != mytree.user_id  %}
+                    <a 
+                        data-request="onLoadUserTree" 
+                        data-request-update="'tree': '#treeContainer'"
+                        data-request-data="userId: {{mytree.parent.user_id}}, blockId: {{block.id}}"
+                        class="text-success mr-2"><i class="fa fa-arrow-up"></i> {{ 'Step Up'|_ }}  </a>
+                {% endif  %}
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+
+    <div class="col-1 d-block d-md-none py-5">
+        <div class="border-do-blue-4 h-100"></div>
+    </div>
+    <div class="col-10 col-md-12">
+    	<div class="row pt-5">
+    		<div class="col-6 offset-3 d-none d-lg-block ">
+    			<div class="border-doted-blue-4 pt-5"></div>
+    		</div>
+    	</div>
+    	<div class="row mt-5">
+    		{% for item in 0..3 %}
+        		<div class="col-lg-2 col-md-6 {{ item == 0 ? 'offset-lg-2' }} col-md-6 col-12 text-center ">
+                    {% set item = mytree.children[item] %}
+                    {% if item %}
+            			<div class="eul-septer">
+            				<img class="absolut img-contain rounded-circle" style="height: 144px; width:144px" src="{{item.user.avatar.path|resize(144, 144)}}" alt="{{ item.user.name }}">
+            				<div class="mariy">
+            					<p class="pt-2">{{ item.user.name }}</p>
+            					<div class="span-style mx-5">{{ item.user_id }}</div>
+            					<div class="pt-4">
+            					    <a 
+                                        data-request="onLoadUserTree" 
+                                        data-request-update="'tree': '#treeContainer'"
+                                        data-request-data="userId: {{item.user_id}}, blockId: {{block.id}}"
+                                        class="text-success mr-2"><i class="far fa-chevron-down"></i></a>
+            					</div>
+            				</div>
+            			</div>
+        			{% else %}
+                    	<div class="eul-septer">
+            				<img class="absolut img-contain rounded-circle" src="{{item.user.avatar.path|resize(144, 144)}}" alt="{{ item.user.name }}">
+            				<div class="mariy">
+            					<p class="pt-2">{{ "Не куплен"|_ }}</p>
+            					<div class="span-style mx-2 ">Свободное место</div>
+            					<div class="pt-4">
+            					    <a 
+                                        data-request="onLoadUserTree" 
+                                        data-request-update="'tree': '#treeContainer'"
+                                        data-request-data="userId: {{item.user_id}}, blockId: {{block.id}}"
+                                        class="text-success mr-2"><i class="far fa-chevron-down"></i></a>
+            					</div>
+            				</div>
+        			</div>
+        			{% endif %}
+        		</div>
+    		{% endfor %}
+    	</div>
+    </div>
+</div>

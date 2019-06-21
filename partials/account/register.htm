@@ -1,0 +1,38 @@
+==
+<?php
+public function onStart() {
+    $this['parent_id'] = $this->param('ref', 0);
+    
+    if (empty($this['parent_id'])) {
+        $this['parent_id'] = Session::pull('parent');
+    }
+}
+?>
+==
+{% if canRegister %}
+  <form role="form" data-request="onRegister" data-request-flash>
+      {% flash %}
+        <div class="alert alert-{{ type }}">
+            {{ message }}
+        </div>
+      {% endflash %}
+
+      <div class="form-group text-white">
+        <label for="email">Имя</label>
+        <input  type="text" class="form-control mb-4" name="name" placeholder="Имя">
+      </div>
+      <div class="input-group">
+        <input  type="Email" class="form-control mb-4 input-styly input-group-prepend mb-3" name="email" placeholder="Email">
+        <div class="input-group-append mb-3">
+        </div>
+      </div>
+      <div class="input-group">
+        <input type="password" class="form-control input-styly input-group-prepend mb-3" name="password" placeholder="Пароль">
+        <div class="input-group-append mb-3">
+        </div>
+      </div>                  
+      <button class="btn btn-outline-white mr-3 mt-3 mp-2 px-4 bg-transparent border-white rounded-btn-circle text-white bg-red-blue w-100"><span><i class="far fa-user pr-2"></i></span>Создать аккаунт</button>
+    </form> 
+{% else %}
+    <!-- Registration is disabled. -->
+{% endif %}

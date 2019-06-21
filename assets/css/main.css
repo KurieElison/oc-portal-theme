@@ -132,6 +132,7 @@ background-color:none;
 	float: right;
 	display: flex;
 	margin: 0;
+	justify-content: flex-end;
 }
 .ul-main li a:hover {
 	list-style: none;
@@ -185,8 +186,16 @@ ul li {
 .classic {
 	background-color: #fff;
 	text-align: center;
-	padding: 13px;
-	border-radius: 40px;
+    height:60px;
+    width: 60px;
+    display:block;
+	border-radius: 50%;
+	line-height:60px;
+	font-size:20px;
+}
+.text-footer {
+color:#707070;  
+padding-left:50px;
 }
 .fa-instagram{
 	color: #F22156;
@@ -224,7 +233,7 @@ background: linear-gradient( 100deg, #20D98B, #626DE5);
 .navbar-nav .dropdown-menu {
 	position: absolute;
 	top: 60px;
-	left: -22px;
+	left:0px;
 }
 .bar {
 	color: #fff;
@@ -251,8 +260,7 @@ color: #fff
 	 background: linear-gradient( 100deg, #20D98B, #626DE5);
 }
 .modal-link {
-	margin: 0px 0 20px 0;
-	width: 300px;
+	margin: 0px 0 16px 0;
 	background: linear-gradient( 100deg, #20D98B, #626DE5);	
 	    border-radius: 0px 50px 50px 0px;
 }
@@ -402,7 +410,7 @@ color: #fff
     right: 0;
         text-align: -webkit-left;
     left: 0;
-    width: 300px;
+    width: 245px;
     margin-top: 100px;
     z-index: 1000;
     overflow: auto;
@@ -457,9 +465,16 @@ color: #fff
 .plohospal {
 		background: linear-gradient( 100deg, #20D98B, #626DE5);
 	color: #fff;
-	padding: 20px 20px 20px 20px;
+
 	border-radius: 40px;
 	border: none;
+	    width: 100%;
+	 display:block;
+}
+.plohospal a{
+   padding: 20px 20px 20px 20px; 
+   	display:block;
+   	height:100%;
 }
 .main-blog-color {
 	background-color: #fff;
@@ -515,9 +530,9 @@ color: #fff
 .modal-link  a {
 	    color: #fff;
     display: block;
-    /* width: 100%; */
+     width: 100%; 
     height: 100%;
-    padding: 20px 20px 20px 20px;
+    padding: 10px 20px 10px 20px;
 }
 .modal-link  a:hover {
 	text-decoration: none;
@@ -541,6 +556,9 @@ color: #fff
 	  min-height: calc(95vh - 80px);
 
 }
+.fonts-home {
+font-size: 50px;    
+}
 .arrow-block {
 	border-radius: 3px;
 	color: #fff;
@@ -553,8 +571,23 @@ color: #fff
     transition: transform .4s ease;
 
 }
-.show {
-	    background-color: #0a277ab5;
+.collapse show{
+	    background-color: #fff;
+}
+.collapse .show{
+color:#000;    
+}
+.faq-span-text {
+color:#000;    
+}
+.big-text-faq {
+color: #3158C7;  
+font-size:50px;
+}
+.profile-img-akk {
+border-radius:50%;
+width:200px;
+height:200px;;
 }
 .close {
 	    position: absolute;
@@ -694,7 +727,13 @@ background-size: auto;
 }
 .border-doted-blue-4 {
 	border-top: dotted 10px #2B57D3;
-
+}
+.border-all-img {
+border-radius:50%;
+height:60px;
+width:60px;
+    
+     
 }
 .border-do-blue-4 {
 	border-left: dotted 10px #2B57D3;
@@ -737,6 +776,13 @@ background-image: url('../img/Group2350.png');
     margin-top: 48px;
 
 }
+.padding-klient {
+     padding: 9px 25px 9px 25px;  
+     display:block;
+}
+.padding-klient.show{
+    padding: 9px 25px 9px 25px;  
+}
 .flot-right {
 	float: right;
 	padding: 20px;
@@ -758,9 +804,10 @@ background-image: url('../img/Group2350.png');
     right: 0;
     bottom: 0;
     left: 0;
+    padding-top:30px;
+    padding-bottom:15px;
     z-index: 1030;
         border-top: 1px solid #607d8b73;
-    padding-top: 25px;
 }
 .col-gold {
 	color: #DCA926;
@@ -788,11 +835,28 @@ background-image: url('../img/Group2350.png');
 }
 .none-link {
 	display: none;
+    }
 }
 @media screen  and (max-width: 992px){
 	.border-left-block{
 		  border-top: 2px solid #f5f5f5
 	}
+.plohospal{
+    border-radius: 50px 0px 0px 50px;
+    padding: 0px 60px 0px 20px;    
+}
+.navbar-nav .dropdown-menu {
+   position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    text-align: -webkit-right;
+    margin-top: 100px;
+    z-index: 1000;
+    overflow: auto; 
+}
+.plohospal {
+width:200px;  
 }
 
 }
@@ -815,6 +879,7 @@ height:auto;
 }
 .lock {
 	display: block;
+	    position: inherit;
 }
 .limonad {
 margin-bottom: 30px;
@@ -851,6 +916,7 @@ display: none;
 .addlas {
 	display: none;
 }
+
 .makson{
 	display: block;
 }
@@ -861,6 +927,13 @@ display: none;
 	margin-right: 0;
 	width: 100%;
 }
+.lock {
+padding-top:10px;    
+}
+.modal-dialog {
+margin:  0 auto;    
+}
+
 
 
 

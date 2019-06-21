@@ -1,0 +1,61 @@
+title = "Block"
+url = "/block/:id"
+layout = "account"
+is_hidden = 0
+
+[viewBag]
+localeUrl[en] = "/block"
+==
+<?php
+use Shohabbos\Portal\Models\Block;
+
+public function onStart() {
+    $user = Auth::getUser();
+    $blockId = $this->param('id');
+    
+    $this->prepareTreeData($blockId, $user->id);
+    
+    if (!$this['mytree']) {
+        return Redirect::to('blocks');
+    }
+}
+
+
+public function onLoadUserTree() {
+    $userId = post('userId');
+    $blockId = post('blockId');
+    
+    $this->prepareTreeData($blockId, $userId);
+}
+
+
+public function prepareTreeData($blockId, $userId) {
+    $block = Block::find($blockId);
+    $mytree = $block->tree()->where('user_id', $userId)->first();
+    
+    $this['block'] = $block;
+    $this['mytree'] = $mytree;
+    $this['user'] = Auth::getUser();
+}
+?>
+==
+<section>
+	<div class="kent">
+		<div class="container-fluid" style="padding-bottom: 80px;">
+			<h2 class="text-center pt-5 color-text">{{ block.title }}</h2>
+			{% if block.currency == 'usd' %}
+                <a href="{{'blocks'|page}}" class="bloki"><i class="fas fa-chevron-left pr-2"></i> {{'Go back'|_}} </a>
+            {% elseif block.currency == 'btc' %}
+                <a href="{{'btc-blocks'|page}}" class="bloki"><i class="fas fa-chevron-left pr-2"></i> {{'Go back'|_}} </a>
+            {% elseif block.currency == 'rus' %}
+                <a href="{{'rus-blocks'|page}}" class="bloki"><i class="fas fa-chevron-left pr-2"></i> {{'Go back'|_}} </a>
+            {% else %}
+                <a href="{{'rub-blocks'|page}}" class="bloki"><i class="fas fa-chevron-left pr-2"></i> {{'Go back'|_}} </a>
+            {% endif %}
+            <div id="treeContainer">
+                {% partial 'tree' mytree=mytree block=block %}
+            </div>
+												
+		</div>
+	</div>
+</section>

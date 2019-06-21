@@ -1,0 +1,31 @@
+==
+<div class="table-responsive">
+    
+    <table class="table align-items-center table-flush">
+        <thead>
+            <tr>
+                <th scope="col"> {{'Amount'|_}} </th>
+                <th scope="col"> {{'TXID'|_}} </th>
+                <th scope="col"> {{'Confirmations'|_}} </th>
+                <th scope="col"> {{'Time'|_}} </th>
+            </tr>
+        </thead>
+        <tbody>
+        
+            {% for payment in btctrans %}
+                <tr>
+                    <td> {{payment.amount}} </td>
+                    <td> {{payment.address}} </td>
+                    <td> {{payment.confirmations}} </td>
+                    <td> {{payment.time|date('Y-m-d, H:i')}} </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3" class="text-center"> {{'Nothing not found'|_}} </td>
+                </tr>
+            {% endfor %}
+        
+        </tbody>
+    </table>
+
+</div>

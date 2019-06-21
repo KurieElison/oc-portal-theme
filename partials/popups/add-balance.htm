@@ -1,0 +1,142 @@
+==
+<?php
+function onStart(){
+    $this['user'] = Auth::getUser();    
+}
+?>
+==
+<div class="modal-body p-0">
+    <div  class="card bg-gradient-success shadow border-0" style="background: linear-gradient(87deg, #2dce89 0, #2dcecc 100%) !important;">                
+        <div class="card-body"> 
+        
+            <div class="text-center text-white mb-2">
+                {{'Top up balance'|_}}
+            </div>
+            
+            <div id="payFormContainer">
+            
+                <div class="nav-wrapper">
+                     <!-- nav-fill flex-column flex-md-row -->
+                    <ul class="nav nav-pills mb-4" id="tabs-icons-text" role="tablist">
+                        <li class="nav-item mr-2" style="width: 45%;">
+                            <a class="nav-link mb-sm-3 mb-md-0 active bg-secondary" data-toggle="tab" href="#formsPayeer" aria-selected="true">
+                                <img src="{{'assets/img/payeer.png'|theme}}" style="max-width: 130px" alt="">
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item" style="width: 45%;">
+                            <a class="nav-link mb-sm-3 mb-md-0 bg-secondary" data-toggle="tab" href="#formsBitcoin" aria-selected="false">
+                                <img src="{{'assets/img/bitcoin.png'|theme}}" style="max-width: 100px" alt="">
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item" style="display: none;">
+                            <a class="nav-link mb-sm-3 mb-md-0 bg-secondary" data-toggle="tab" href="#formsPaykassa" aria-selected="false">
+                                <img src="{{'assets/img/paykassa.png'|theme}}" style="max-width:70px" alt="">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+        
+        
+                <div class="tab-content" id="myTabContent">
+                
+                    <!-- Paykassa -->
+                    <form data-request="paykassaPayForm::onPayForm" style="display: none"
+                        data-request-update="'paykassaPayForm::default': '#payFormContainer'"
+                        data-request-flash role="form">
+                          
+                        <input type="hidden" name="order_id" value="{{user.id}}">
+                      
+                        <div class="form-group">
+                            <div class="input-group input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                                </div>
+                                <input class="form-control" name="amount" placeholder="{{'Amount'|_}}" type="number">
+                            </div>
+                        </div>
+                    
+                        <div class="text-center">
+                            <button type="submit" data-attach-loading class="btn btn-primary my-2"> {{"Fill balance"|_}} </button>
+                            <button type="button" class="btn btn-secondary my-2" data-dismiss="modal"> {{"Close"|_}} </button>
+                        </div>
+                    </form>
+                        
+                        
+                    <div class="tab-pane fade show" id="formsBitcoin" role="tabpanel">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h3>{{user.wallet_btc}}</h3>
+                                
+                                {% if not user.wallet_btc %}
+                                    <a href="#!" data-request="onGenerateWallet" data-request-flash class="btn btn-primary">
+                                        <span class="fas fa-wallet"></span> {{'Get BTC wallet'|_}} 
+                                    </a>
+                                {% endif %}
+                                
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Payeer -->
+                    <div class="tab-pane fade show active" id="formsPayeer" role="tabpanel" style="background-color: transparent!important;">
+                        <form data-request="payFormComponent::onPayForm"
+                            data-request-update="'payFormComponent::default': '#payFormContainer'"
+                            data-request-flash role="form">
+                            
+                              
+                            <input type="hidden" name="order_id" value="{{user.id}}">
+                          
+                            <div class="form-group">
+                                <div class="input-group input-group-alternative">
+                                    <select name="currency" class="form-control">
+                                        <option value="USD"> USD </option>
+                                        <option value="RUB"> RUB </option>
+                                    </select>
+                                </div>
+                            </div>
+                          
+                            <div class="form-group">
+                                <div class="input-group input-group-alternative">
+                                    <input class="form-control" name="amount" placeholder="{{'Amount'|_}}" type="number">
+                                </div>
+                            </div>
+                        
+                            <div class="text-center">
+                                <button type="submit" data-attach-loading class="btn btn-primary my-2"> {{"Fill balance"|_}} </button>
+                                <button type="button" class="btn btn-secondary my-2" data-dismiss="modal"> {{"Close"|_}} </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Paykassa -->
+                    <div class="tab-pane fade show" id="formsPaykassa" role="tabpanel" style="display none">
+                        <form data-request="paykassaPayForm::onPayForm"
+                            data-request-update="'paykassaPayForm::default': '#payFormContainer'"
+                            data-request-flash role="form">
+                            
+                            <h2 class="text-center"> Paykassa </h2>
+                              
+                            <input type="hidden" name="order_id" value="{{user.id}}">
+                          
+                            <div class="form-group">
+                                <div class="input-group input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                                    </div>
+                                    <input class="form-control" name="amount" placeholder="{{'Amount'|_}}" type="number">
+                                </div>
+                            </div>
+                        
+                            <div class="text-center">
+                                <button type="submit" data-attach-loading class="btn btn-primary my-2"> {{"Fill balance"|_}} </button>
+                                <button type="button" class="btn btn-secondary my-2" data-dismiss="modal"> {{"Close"|_}} </button>
+                            </div>
+                        </form>
+                    </div>                    
+                </div>                
+            </div>            
+        </div>                
+    </div>
+</div>

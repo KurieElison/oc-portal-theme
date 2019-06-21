@@ -23,9 +23,9 @@ function onStart() {
 					{% for transaction in user.blockTransactions().with('block').where('type', 0).get() %}		
 						<div class="d-sm-flex">
 							<div class="background-images-div mt-5 mb-5 mx-auto">
-								<div class="border-img-gold"><img class="" src="{{'assets/img/Ellipse665.png'|theme}}" alt=""></div>
+								<div class="border-img-gold"><img class="" src="{{ user.avatar|resize(200, 200, {mode: 'crop'}) }}" alt=""></div>
 								<span>{{transaction.date|date('Y-m-d')}}</span>	
-								<img class="addlass" src="{{ user.avatar|resize(200, 200, {mode: 'crop'}) }}" alt="{{user.name}}">
+								<img class="addlass" src="{{'assets/img/Ellipse665.png'|theme}}" alt="{{user.name}}">
 								<h3 class="col-gold">{{'Поздравляем вас с получением выплаты'|_}}</h3>
 								<p class="text-col">{{user.name}} {{user.surname}}</p>
 							</div>

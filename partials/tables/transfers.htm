@@ -1,0 +1,86 @@
+==
+<div class="table-responsive">
+    <table class="table align-items-center">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">{{'Action'|_}}</th>
+                <th scope="col"> ID </th>
+                <th scope="col"> {{'Amount'|_}} </th>
+                <th scope="col"> {{'Date'|_}} </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transfer in transfers %}
+            <tr>
+                <td>
+                    {% if transfer.from_user_id == user.id %}
+                        {{ 'Sended'|_ }}
+                    {% else %}
+                        {{'Received'|_}} 
+                    {% endif %}
+                </td>
+                
+                <td>
+                    {{ transfer.from_user_id == user.id ? transfer.to_user_id : transfer.from_user_id }}
+                </td>
+                
+                {% if transfer.currency == 'btc' %}
+                    <td> {{transfer.amount}} {{transfer.currency|lower}} </td>
+                {% else %}
+                    <td> {{transfer.amount|round}} {{transfer.currency|lower}} </td>
+                {% endif %}
+                
+                
+                <td> {{transfer.date}} </td>
+            </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4" class="text-center"> {{'Money transfers not found'|_}} </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% if transfers.lastPage > 1 %}
+<div class="card-footer py-4">
+    <nav aria-label="...">
+        <ul class="pagination justify-content-end mb-0">
+            
+            {% if transfers.currentPage > 1 %}
+                <li class="page-item">
+                    <a class="page-link" 
+                        data-request="onTransfersPagination"
+                        data-request-data="page: {{transfers.currentPage-1}}"
+                        href="#!" tabindex="-1"><i class="fas fa-angle-left"></i><span class="sr-only"> {{'Previous'|_}} </span></a>
+                </li>
+            {% endif %}
+            
+            
+        
+            {% for page in 1..transfers.lastPage %}
+                <li class="page-item {{ transfers.currentPage == page ? 'active' : null }}">
+                    <a class="page-link" 
+                        data-request="onTransfersPagination"
+                        data-request-data="page: {{page}}"
+                        href="#!">{{ page }}</a>
+                </li>
+            {% endfor %}
+            
+            
+            {% if transfers.lastPage > transfers.currentPage %}
+                <li class="page-item">
+                    <a class="page-link"
+                        data-request="onTransfersPagination"
+                        data-request-data="page: {{transfers.currentPage+1}}"
+                        href="#!">
+                        <i class="fas fa-angle-right"></i>
+                        <span class="sr-only"> {{'Next'|_}} </span>
+                    </a>
+                </li>
+            {% endif %}
+        
+        </ul>
+    </nav>
+</div>
+{% endif %}

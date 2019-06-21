@@ -88,104 +88,30 @@ public function onBuyBlockModal() {
 					<div class="card mall">
 					  	<div class="card-body">
 					    	<h2 class="card-title">{{ key + 1 }}</h2>
-					    	<p class="text-center"><b>{{item.title}}</b></p>								    
-					   		<button type="button" class="card-button modal-btn" data-toggle="modal" data-target="#exampleModalCenter">КУПИТЬ</button>
+					    	<p class="text-center"><b>{{item.title}}</b></p>
+					    	<p class="text-center"><b>{{item.content}}</b></p>
+					    	{% if item.tree_count %}
+					    	    <a href="{{ 'block'|page({id: item.id}) }}" class="card-button modal-btn"> Открыть блок </a>
+					   		{% else %}
+					   		    <button data-request="onBuyBlockModal"
+                                        data-request-data="block_id: {{item.id}}"
+                                        data-request-flash
+                                        data-request-success="$('#exampleModalCenter').modal('show')"
+                                        class="card-button modal-btn">КУПИТЬ</button>
+					  	    {% endif %}
 					  	</div>
 					</div>
 				</div>
 				{% endfor %}
-				<div class="col-lg-3 col-md-6 col-ms-12 mt-4">
-					<div class="card mall">
-				    	<div class="card-body">
-						    <h2 class="card-title">2</h2>
-						    <p class="text-center"><b>бЛОК</b></p>							    
-						  	<button type="button" class="card-button modal-btn" data-toggle="modal" data-target="#exampleModalCenter">КУПИТЬ</button> 
-					 	</div>
-					</div>
-				</div>		
-				<div class="col-lg-3 col-md-6 col-ms-12 mt-4">
-					<div class="card mall">
-					  	<div class="card-body">
-					    	<h2 class="card-title">3</h2>
-					     	<p class="text-center"><b>бЛОК</b></p>								    
-					  		<button type="button" class="card-button modal-btn" data-toggle="modal" data-target="#exampleModalCenter">КУПИТЬ</button> 
-					  	</div>
-					</div>
-				</div>		
-				<div class="col-lg-3 col-md-6 col-ms-12 mt-4">
-					<div class="card mall">
-						<div class="card-body">
-						    <h2 class="card-title">4</h2>
-						    <p class="text-center"><b>бЛОК</b></p>								    
-						   	<button type="button" class="card-button modal-btn" data-toggle="modal" data-target="#exampleModalCenter">КУПИТЬ</button>
-						</div>
-					</div>
-				</div>	
-				<div class="col-lg-3 col-md-6 col-ms-12 mt-4">
-					<div class="card mall">
-						<div class="card-body">
-						    <h2 class="card-title">5</h2>
-						    <p class="text-center"><b>бЛОК</b></p>								    
-						  	<button type="button" class="card-button modal-btn" data-toggle="modal" data-target="#exampleModalCenter">КУПИТЬ</button> 
-						</div>
-					</div>
-				</div>		
-				<div class="col-lg-3 col-md-6 col-ms-12 mt-4">
-					<div class="card mall">
-						<div class="card-body">
-						    <h2 class="card-title">6</h2>
-						    <p class="text-center"><b>бЛОК</b></p>						    
-						  	<button type="button" class="card-button modal-btn" data-toggle="modal" data-target="#exampleModalCenter">КУПИТЬ</button> 
-						</div>
-					</div>
-				</div>		
-				<div class="col-lg-3 col-md-6 col-ms-12 mt-4">
-					<div class="card mall">
-						<div class="card-body">
-						    <h2 class="card-title">7</h2>
-						    <p class="text-center"><b>бЛОК</b></p>								    
-						  	<button type="button" class="card-button modal-btn" data-toggle="modal" data-target="#exampleModalCenter">КУПИТЬ</button> 
-						</div>
-					</div>
-				</div>		
-				<div class="col-lg-3 col-md-6 col-ms-12 mt-4">
-					<div class="card mall">
-						<div class="card-body">
-						    <h2 class="card-title">8</h2>
-						    <p class="text-center"><b>бЛОК</b></p>								    
-						    <button type="button" class="card-button modal-btn" data-toggle="modal" data-target="#exampleModalCenter">КУПИТЬ</button>
-						</div>
-					</div>
-				</div>
-				<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered" role="document">
-					    <div class="modal-content">
-					    	<div class="container">
-					    		<div class="row">
-					    			<div class="col-lg-8">
-							    		<div class="modal-header">
-										    <h4 class="title-modal">Купить блок</h4>
-					   					</div>
-					   					<div class="modal-body">
-					     		 			<label for="email">ID партнера</label>
-		                               	<div class="input-group">
-		                                    <input type="password" class="mb-3 form-control" name="" placeholder="Введите ID партнера">
-		                                </div>
-		                                	<a class="modal-btn mt-3" href="{{'main_block'|page}}">КУПИТЬ</a>
-					     				</div>
-					    			</div>			     
-			      					<div class="col-lg-4 cola pt-5 pb-5">
-		    							<img src="{{'assets/img/Union 5.png'|theme}}" alt="">
-		    						</div>			     
-								</div>
-			  				</div>	
-			   				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					            <span aria-hidden="true">&times;</span>
-							</button>    
-		    			</div>
-		  			</div>
-				</div>
+				
 			</div>
 		</div>
 	</div>
 </section>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content buy-block-modal-content">
+	    	Loading...    
+		</div>
+  	</div>
+</div>

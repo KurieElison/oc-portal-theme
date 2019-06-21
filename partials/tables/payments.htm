@@ -1,0 +1,91 @@
+==
+<div class="table-responsive">
+    
+    <table class="table align-items-center table-flush">
+        <thead>
+            <tr>
+                <th scope="col"> {{'Payment type'|_}} </th>
+                <th scope="col"> {{'Amount'|_}} </th>
+                <th scope="col"> {{"Payment system"|_}} </th>
+                <th scope="col"> {{'Date'|_}} </th>
+            </tr>
+        </thead>
+        <tbody>
+        
+            {% for payment in payments %}
+                <tr>
+                    <td>
+                        {% if payment.is_buy %}
+                            {{ 'Replenishment'|_ }}
+                        {% else %}
+                            {{'Withdraws'|_}}
+                        {% endif %}
+                    </td>
+                    
+                    {% if payment.currency == 'usd' %}
+                        <td>${{payment.amount}} USD</td>
+                        <td>
+                            Payeer
+                        </td>
+                    {% else %}
+                        <td>{{payment.amount}} RUB</td>
+                        <td>
+                            Payeer RUB
+                        </td>
+                    {% endif %}
+                    
+                    <td>{{payment.date}}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4" class="text-center"> {{'Payments not found'|_}} </td>
+                </tr>
+            {% endfor %}
+        
+        </tbody>
+    </table>
+
+</div>
+
+{% if payments.lastPage > 1 %}
+<div class="card-footer py-4">
+    <nav aria-label="...">
+        <ul class="pagination justify-content-end mb-0">
+            
+            {% if payments.currentPage > 1 %}
+                <li class="page-item">
+                    <a class="page-link" 
+                        data-request="onPaymentsPagination"
+                        data-request-data="page: {{payments.currentPage-1}}"
+                        href="#!" tabindex="-1"><i class="fas fa-angle-left"></i><span class="sr-only"> {{'Previous'|_}} </span></a>
+                </li>
+            {% endif %}
+            
+            
+        
+            {% for page in 1..payments.lastPage %}
+                <li class="page-item {{ payments.currentPage == page ? 'active' : null }}">
+                    <a class="page-link" 
+                        data-request="onPaymentsPagination"
+                        data-request-data="page: {{page}}"
+                        href="#!">{{ page }}</a>
+                </li>
+            {% endfor %}
+            
+            
+            {% if payments.lastPage > payments.currentPage %}
+                <li class="page-item">
+                    <a class="page-link"
+                        data-request="onPaymentsPagination"
+                        data-request-data="page: {{payments.currentPage+1}}"
+                        href="#!">
+                        <i class="fas fa-angle-right"></i>
+                        <span class="sr-only"> {{'Next'|_}} </span>
+                    </a>
+                </li>
+            {% endif %}
+        
+        </ul>
+    </nav>
+</div>
+{% endif %}

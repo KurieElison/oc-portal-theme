@@ -157,115 +157,122 @@ function onWithdraw() {
 <section>
 	<div class="kent">		
 		<div class="container">
-			<h2 class="text-center pt-5 color-text">Мой кошелек</h2>
-			<div class="col-lg-12 d-flex d-md-blog justify-content-center pt-3 text-dark">
-				<a class="text-dark" href="Payments.html"><i class="far fa-credit-card pr-3 pl-5 text-dark"></i><b>Платежи</b></a>
-				<a class="text-dark" href="Money transfers.html"><i class="fas fa-wallet pr-3 pl-5 text-dark"></i><b>Денежные переводы</b></a>
-			</div>
-			<div class="row pt-3 alienware">
-				<div class="col-lg-12">
-					<div class="bacground-color-block">
-						<div class="row">
-							<div class="col-lg-6 col-sm-6 col-12">
-								<h5 class="og-drink01">ПЛАТЕЖИ</h5>
-							</div>
-							<div class="col-lg-6 col-sm-6 col-12 d-flex align-items-center justify-content-end">
-								<button type="button" class="modal-btn mr-3" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-wallet pr-3"></i>ПОПОЛНИТЬ</button>
-								<button type="button" class="mortal mr-3" data-toggle="modal" data-target="#mortal-combat"><i class="far fa-money-bill-wave-alt pr-3"></i>Вывести</button>
-							</div>	
-						</div>
-						<div class="text-color-bg d-flex">
-							<p class="w-50">Способ оплаты</p>
-							<p class="w-25">Сумма</p>
-							<p>Дата</p>						
-						</div>
-						<div class="text-color-bg text-dark d-flex">
-							<p class="w-50">Payyer Wallet</p>
-							<p class="w-25">10 000 KZT</p>
-							<p class="data">12.06.2019</p>
-							<span><i class="far fa-receipt"></i></span>
-						</div>
-						<div class="text-color-bg text-dark d-flex">
-							<p class="w-50">Qiwi Wallet</p>
-							<p class="w-25">8 000 KZT</p>
-							<p class="data">12.06.2019</p>
-							<span><i class="far fa-receipt"></i></span>
-						</div>
-						<div class="text-color-bg text-dark d-flex">
-							<p class="w-50">Payoneer Wallet</p>
-							<p class="w-25">14 000 KZT</p>
-							<p class="data">12.06.2019</p>
-							<span><i class="far fa-receipt"></i></span>
-						</div>
-						<div class="text-color-bg text-dark d-flex">
-							<p class="w-50">WebMoney Wallet</p>
-							<p class="w-25">3 000 KZT</p>
-							<p class="data">12.06.2019</p>
-							<span><i class="far fa-receipt"></i></span>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered" role="document">
-				    <div class="modal-content">
-				    	<div class="container">
-				    		<div class="row">
-				    			<div class="col-lg-8">
-						    		<div class="modal-header">
-									    <h4 class="title-modal">Пополнить баланс</h4>
-				   					</div>
-				   					<div class="modal-body">
-				     		 			<label for="email">Сумма</label>
-		                           		<div class="input-group">
-		                                  	<input type="password" class="mb-3  form-control" name="" placeholder="Введите ID партнера">
-		                            	</div>
-		                            	<button type="button" class="modal-btn mt-3" data-dismiss="modal">ПОЛУЧИТЬ</button>
-				     				</div>
-						    	</div>			     
-			      				<div class="col-lg-4 cola pt-5 pb-5">
-		    						<img src="assets/img/withdraw.png" alt="">		    		
-		    					</div>			     
-							</div>
-			 			</div>	
-			   			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>    
-		    		</div>
-		  		</div>
-			</div>
-			<div class="modal fade" id="mortal-combat" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered" role="document">
-				    <div class="modal-content">
-				    	<div class="container">
-				    		<div class="row">
-			    				<div class="col-lg-8">
-						    		<div class="modal-header">
-									    <h4 class="title-modal">Запрос на вывод</h4>
-				   					</div>
-				   					<div class="modal-body">
-				     		 			<label for="email">Сумма (KZT)</label>
-				                       	<div class="input-group">
-				                            <input class="mb-3  form-control" name="" placeholder="Введите ID партнера">
-				                        </div>
-				                        <label for="email">Адрес вашего кошелька</label>
-				                       	<div class="input-group">
-				                            <input class="mb-3  form-control" name="" placeholder="Введите ID партнера">
-				                        </div>
-				                        <button type="button" class="modal-btn mt-3" data-dismiss="modal">Вывод</button>
-				     				</div>
-						    	</div>			   
-			      				<div class="col-lg-4 cola pt-5 pb-5">
-		    						<img src="assets/img/atm.png" alt="">		    		
-		    					</div>			     
-							</div>
-			  			</div>	
-			   			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>    
-		    		</div>
-		  		</div>
-			</div>
+			<h2 class="text-center pt-5 color-text">{{'Мой кошелек'|_}}</h2>			
+			
+            <div class="header-body">          
+                <div class="nav-wrapper">
+                    <ul class="nav nav-pills" id="tabs-icons-text" role="tablist">
+                        <li class="nav-item m-3" style="width: 12%!important;">
+                            <a class="nav-link mb-sm-3 mb-md-0 active text-dark" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="fas fa-credit-card mr-2"></i> {{ 'Payments'|_ }} </a>
+                        </li>
+                        <li class="nav-item m-3" style="width: 20%!important;">
+                            <a class="nav-link mb-sm-3 mb-md-0 text-dark" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="fas fa-exchange-alt mr-2"></i>  {{ 'Money transfers'|_ }}</a>
+                        </li>
+                        <li class="nav-item m-3" style="width: 15%!important;">
+                            <a class="nav-link mb-sm-3 mb-md-0 text-dark" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-3" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="fas fa-exchange-alt mr-2"></i>  {{ 'BTC WALLET'|_ }}</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="card shadow">
+                    
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+                        
+                            <div class="card-header border-0 p-4">
+                              <div class="row align-items-center">
+                                <div class="col">
+                                  <h2 class="mb-0"> {{'Payments'|_}} </h2>
+                                </div>
+                                <div class="col text-right">
+                                  <a href="#!" 
+                                    data-request="onAjax" 
+                                    data-request-update="'popups/add-balance': '#paymentModalContent'" 
+                                    data-toggle="modal" data-target="#paymentModal" 
+                                    class="modal-btn mr-3 py-3"> 
+                                        <i class="fas fa-wallet pr-3"></i>
+                                        {{'Fill balance'|_}}                  
+                                  </a>
+                                  
+                                  <a href="#!"
+                                    data-request="onAjax" 
+                                    data-request-update="'popups/withdraw': '#paymentModalContent'" 
+                                    data-toggle="modal" data-target="#paymentModal" 
+                                    class="mortal mr-3 py-3"> 
+                                        <i class="far fa-money-bill-wave-alt pr-3"></i>{{'Withdraw'|_}} 
+                                    </a>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div id="paymentsTable">
+                                {% partial 'tables/payments' payments=payments %}
+                            </div>
+                            
+                            
+                        </div>  
+                        <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
+                            <div class="card-header border-0">
+                              <div class="row align-items-center">
+                                <div class="col">
+                                  <h2 class="mb-0"> {{'Money transfers'|_}} </h2>
+                                </div>
+                                <div class="col text-right">
+                                    <a href="#!" 
+                                        data-request="onAjax" 
+                                        data-request-update="'popups/transfer': '#paymentModalContent'" 
+                                        data-toggle="modal" data-target="#paymentModal" 
+                                        class="modal-btn"> 
+                                            <span class="fas fa-exchange-alt"></span> {{'Send money'|_}} 
+                                    </a>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div id="transfersTable">
+                                {% partial 'tables/transfers' transfers=transfers %}
+                            </div>
+                            
+                        </div>
+                        <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
+                            <div class="card-header border-0">
+                              <div class="row align-items-center">
+                                <div class="col">
+                                  <h2 class="mb-0"> {{'My btc wallet'|_}} </h2>
+                                </div>
+                                <div class="col text-right">
+                                    <h3>{{user.wallet_btc}}</h3>
+                                    
+                                    {% if not user.wallet_btc %}
+                                        <a href="#!" data-request="onGenerateWallet" data-request-flash class="btn btn-primary">
+                                            <span class="fas fa-wallet"></span> {{'Get BTC wallet'|_}} 
+                                        </a>
+                                    {% endif %}
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div id="transfersTable">
+                                {% partial 'tables/btctrans' btctrans=btctrans %}
+                            </div>
+                        </div>                
+                    </div>
+                </div>
+            </div>
+			
+			<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true" style="display: none; background-color: transparent!important;">
+                <div class="modal-dialog modal- modal-dialog-centered modal-sm" role="document">
+                  <div id="paymentModalContent" class="modal-content">
+                      {{'Loading'|_}}...
+                  </div>
+                </div>
+            </div>
+			
+			
 		</div>
 	</div>
 </section>
+
+<style>
+    .show{background-color: #fff!important;}
+</style>

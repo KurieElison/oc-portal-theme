@@ -1,0 +1,53 @@
+==
+<?php
+function onStart(){
+    $this['user'] = Auth::getUser();    
+}
+?>
+==
+<div class="modal-body p-0">
+    <div class="card bg-gradient-primary shadow border-0" style="background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%) !important;">
+        
+        <div class="card-body px-lg-5 py-lg-5">
+            <div class="text-center text-white mb-4">
+                <p>{{"Withdrawal request"|_}}</p>
+            </div>
+      
+            <form role="form" data-request-confirm="Вы уверены в точности ID?" data-request="onTransfer" data-request-flash data-request-success="location.reload();">
+                
+                <div class="form-group">
+                    <div class="input-group input-group-alternative">
+                        <select name="currency" class="form-control">
+                            <option value="USD"> USD </option>
+                            <option value="RUB"> RUB </option>
+                            <option value="BTC"> BTC </option>
+                        </select>
+                    </div>
+                </div>
+            
+                <div id="user-result"></div>
+                <div class="form-group mb-3">
+                    <div class="input-group input-group-alternative">
+                        <input class="form-control" data-request="onCheck" data-track-input="500" placeholder="{{'User ID'|_}}" type="number" name="user_id">
+                    </div>
+                </div>
+                
+                <div class="form-group mb-3">
+                    <input class="form-control" placeholder="{{'Amount'|_}}" type="text" name="amount">
+                    
+                    <p> 
+                        <small class="text-white"> {{"Your balance"|_}}: ${{user.balance}} USD </small>  <br>
+                        <small class="text-white"> {{"BTC balance"|_}}: ${{user.balance_btc}} BTC </small>  <br>
+                        <small class="text-white"> {{'RUB balance'|_}}: {{user.balance_rub}} RUB </small>
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <button type="submit" data-attach-loading class="btn btn-success my-2"> {{'Send'|_}} </button>
+                    <button type="button" class="btn btn-secondary my-2" data-dismiss="modal"> {{"Close"|_}} </button>
+                </div>
+            </form>
+        </div>
+        
+    </div>
+</div>
